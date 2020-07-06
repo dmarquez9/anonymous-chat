@@ -24,12 +24,12 @@ function MessageList () {
   const messagesEndRef = useRef<HTMLHeadingElement>(null)
 
   const scrollToBottom = () => {
-    if (null !== messagesEndRef.current) {
+    if (null !== messagesEndRef.current && messages.length) {
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
     }
   }
 
-  useLayoutEffect (scrollToBottom, [messages])
+  useLayoutEffect(scrollToBottom, [messages])
 
   return (
     <List>

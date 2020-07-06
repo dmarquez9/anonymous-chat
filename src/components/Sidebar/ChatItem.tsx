@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { CategoryProps } from '../../types/category'
 
+import { useLayout } from '../../context/layout'
+
 type ChatProps = {
   category?: boolean;
   data: CategoryProps;
@@ -31,8 +33,21 @@ const ChatLink = styled(Link)`
 
 function ChatItem ({ category, data }: ChatProps) {
   const link = category ? `/category/${data.uid}` : `/chat/${data.uid}`
+  const { changeChatTitle, changeSidebarState } = useLayout()
+
+  const handleChangeChat = () => {
+    changeChatTitle(data.title)
+    changeSidebarState(false)
+  }
+
   return (
-    <ChatLink key={data.uid} to={link}>{data.title}</ChatLink>
+    <ChatLink
+      key={data.uid}
+      to={link}
+      onClick={() => handleChangeChat()}
+    >
+      {data.title}
+    </ChatLink>
   );
 }
 

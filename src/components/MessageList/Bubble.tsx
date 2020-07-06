@@ -26,6 +26,10 @@ const BubbleBox = styled.div`
   width: auto;
   display: inline-block;
   cursor: pointer;
+
+  @media (max-width: 767px) {
+    max-width: 80%;
+  }
 `
 const BubbleAuthor = styled.small`
   display: block;

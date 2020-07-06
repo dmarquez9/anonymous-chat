@@ -15,12 +15,15 @@ const ChatLayout = styled.div`
   flex-direction: column;
   background-color: #f9f9f9;
   height: 100vh;
+  max-width: 100%;
+  overflow: hidden;
 `
 const EmptyChat = styled.div`
   display: flex;
   flex: 1;
   align-items: center;
   justify-content: center;
+  text-align: center;
 `
 
 function ChatBody () {

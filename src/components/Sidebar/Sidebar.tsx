@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { Link } from 'react-router-dom'
+import { Row, Col, Button } from 'react-bootstrap'
 
 import ChatItem from './ChatItem'
 import DividerTitle from './DividerTitle'
@@ -9,20 +10,37 @@ import NewChatModal from '../NewChatModal'
 
 import { useCategory } from '../../context/category'
 import { useChat } from '../../context/chat'
+import { useLayout } from '../../context/layout'
 
+type SidebarLayoutProps = {
+  openSidebar: boolean;
+}
 const SidebarLayout = styled.div`
   display: flex;
   flex-direction: column;
   width: 300px;
   background-color: #2a2a2a;
   padding: 15px;
+
+  @media (max-width: 991px) {
+    position: fixed;
+    left: -300px;
+    top: 0;
+    height: 100vh;
+    z-index: 9999;
+    max-width: 100%;
+
+    ${({ openSidebar }:SidebarLayoutProps) => openSidebar && css`
+      left: 0;
+  `};
+  } 
 `
 
 const Logo = styled(Link)`
   font-weight: bold;
   letter-spacing: 2px;
   color: #fff;
-  margin-bottom: 1rem;
+  margin: 0;
   font-size: 2rem;
 
   &:hover, &:focus {
@@ -42,12 +60,24 @@ const NoChats = styled.h4`
 function Sidebar () {
   const { categories } = useCategory()
   const { chats } = useChat()
+  const { openSidebar, changeSidebarState } = useLayout()
   const [showCategoryModal, setCategoryModal] = useState(false)
   const [showNewChatModal, setNewChatModal] = useState(false)
 
   return (
-    <SidebarLayout>
-      <Logo to="/">Chat</Logo>
+    <SidebarLayout openSidebar={openSidebar}>
+      <Row className="mb-4">
+        <Col><Logo to="/">Chat</Logo></Col>
+        <Col xs="auto" className="d-md-none">
+          <Button
+            variant="outline-light"
+            size="sm"
+            onClick={() => changeSidebarState(false)}
+          > 
+            X
+          </Button>
+        </Col>
+      </Row>
       {categories.length && <DividerTitle title="Categorias" onBtnClick={() => setCategoryModal(true)} />}
       {categories.map((category : any) => (
         <ChatItem key={category.uid} category={true} data={category} />
