@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 import { addMessage } from '../../firebase/chatMessages'
 import { useUser } from '../../context/user'
 
-const Box = styled.div`
+const Box = styled(Form)`
   display: flex;
   align-items: center;
   background-color: #fff;
@@ -30,7 +30,8 @@ function ReplyBox () {
   const { user } = useUser()
   const { chatId } = useParams()
 
-  const handleSubmit = () => {
+  const handleSubmit = (event: any) => {
+    event.preventDefault()
     addMessage({
       chatId,
       userId: user.uid,
@@ -40,13 +41,13 @@ function ReplyBox () {
   }
 
   return (
-    <Box>
+    <Box onSubmit={handleSubmit}>
       <MessageInput
         placeholder="Ingresa un mensaje..."
         value={message}
         onChange={(event : any) => setMessage(event.target.value)}
       />
-      <Button variant="outline-primary" onClick={handleSubmit}>Enviar</Button>
+      <Button variant="outline-primary" type="submit">Enviar</Button>
     </Box>
   );
 }
