@@ -17,20 +17,20 @@ function ChatMessagesProvider ({ children, chatId } : any) {
   useEffect(() => {
     const fetchMessages = async () => {
       chatMessagesDb(chatId).on('value', async (snapshot : any) => {
-        const getMessages = snapshot.val()
+        const messagesValues = snapshot.val()
         const messagesList : ChatMessagesProps[] = []
 
-        for (let message in getMessages){
-          const displayName = await getDisplayName(getMessages[message].userId)
+        for (let message in messagesValues){
+          const displayName = await getDisplayName(messagesValues[message].userId)
           messagesList.push({
             uid: message,
-            content: getMessages[message].content,
-            userId: getMessages[message].userId,
+            content: messagesValues[message].content,
+            userId: messagesValues[message].userId,
             chatId,
-            date: getMessages[message].data,
-            time: getMessages[message].time,
+            date: messagesValues[message].data,
+            time: messagesValues[message].time,
             author: displayName,
-            deleted: getMessages[message].deleted
+            deleted: messagesValues[message].deleted
           });
         }
 

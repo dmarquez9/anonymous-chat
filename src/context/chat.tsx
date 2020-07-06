@@ -12,11 +12,11 @@ function ChatProvider ({ children, userId } : any) {
     const fetchChats = async () => {
       if (userId) {
         chatDb.orderByChild(`members/${userId}`).equalTo(true).on('value', async (snapshot : any) => {
-          const getChats = snapshot.val()
+          const chatsValues = snapshot.val()
           const chatList : ChatProps[] = []
 
-          for (let chat in getChats){
-            const getMembers = Object.keys(getChats[chat].members).filter(key => key !== userId)
+          for (let chat in chatsValues){
+            const getMembers = Object.keys(chatsValues[chat].members).filter(key => key !== userId)
             const displayName = await getDisplayName(getMembers[0])
 
             chatList.push({

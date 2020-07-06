@@ -10,13 +10,13 @@ function CategoryProvider ({ children } : any) {
   useEffect(() => {
     const fetchCategories = async () => {
       categoryDb.on('value', (snapshot : any) => {
-        const getCategories = snapshot.val()
+        const categoriesValues = snapshot.val()
         const categoriesList : CategoryProps[] = []
 
-        for (let category in getCategories){
+        for (let category in categoriesValues){
           categoriesList.push({
-            uid: getCategories[category].uid,
-            title: getCategories[category].title
+            uid: categoriesValues[category].uid,
+            title: categoriesValues[category].title
           });
         }
 
