@@ -6,7 +6,7 @@ export const signInAnom = async () => {
   const uid = generateID()
   const data = {
     uid,
-    name: 'Anonymous-' + uid
+    name: `Anonymous-${uid}`
   }
   
   return db.ref('users/' + data.uid).set({ name: data.name }).then(() => {
