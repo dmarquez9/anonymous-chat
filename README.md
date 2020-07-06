@@ -11,7 +11,18 @@ Anonymous chat is a react chat application made with Firebase where each user is
   - User can create categories.
 
 ## How to run the project
-In the project directory, you can run:
+In the project directory, make a copy of the `.env.example` named `.env` and filled with the firebase config:
+```
+REACT_APP_API_KEY=
+REACT_APP_AUTH_DOMAIN=
+REACT_APP_DATABASE_URL=
+REACT_APP_PROJECT_ID=
+REACT_APP_STORAGE_BUCKET=
+REACT_APP_MESSAGING_SENDER_ID=
+REACT_APP_ID=
+```
+
+Then you can run the project with:
 
 ### `yarn start`
 
